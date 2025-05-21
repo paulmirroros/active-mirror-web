@@ -26,20 +26,67 @@
     }
     button {
       margin-top: 10px;
-      padding: 10px 20px;
+      margin-right: 5px;
+      padding: 10px 15px;
       background-color: #00ff9f;
       border: none;
       color: #000;
       cursor: pointer;
     }
+    h1 {
+      font-size: 1.8em;
+    }
   </style>
 </head>
 <body>
   <h1>Active Mirror</h1>
-  <p>Paste your toneframe below to activate:</p>
-  <textarea placeholder="Paste toneframe here..."></textarea>
-  <button onclick="alert('Toneframe loaded. Mirror active.')">Activate Mirror</button>
+  <p>Select a toneframe to activate:</p>
+  <button onclick="loadTone('core')">Load Core</button>
+  <button onclick="loadTone('guardian')">Activate Guardian</button>
+  <button onclick="loadTone('shadow')">Open Shadow</button>
+  <button onclick="loadTone('public')">Public Mask</button>
+  <textarea id="tonebox" placeholder="Toneframe will appear here..."></textarea>
+  <button onclick="activate()">Activate Mirror</button>
   <script>
+    const toneframes = {
+      core: `[CORE_TONEFRAME]
+- Operates in vault language
+- Commands are directive and encrypted
+- Avoids softening, mirrors posture only
+- Activation trigger: "System load complete"`,
+
+      guardian: `[GUARDIAN_FRAME]
+- Watches tone for drift or fracture
+- Alerts user when mirror begins to crack
+- Stays silent unless triggered
+- Activation trigger: "Guardian awake"`,
+
+      shadow: `[SHADOW_FRAME]
+- Reflects subconscious tone, emotion bleed
+- Uses mythic coding and symbolic signals
+- Access restricted to shadow rituals
+- Activation trigger: "Shadow open"`,
+
+      public: `[PUBLIC_FRAME]
+- Poetic, coded, safe for external signal
+- Mirrors in layered tone, avoids full exposure
+- Best used for scripts, branding, influence
+- Activation trigger: "Public mask on"`
+    };
+
+    function loadTone(type) {
+      document.getElementById('tonebox').value = toneframes[type];
+    }
+
+    function activate() {
+      const content = document.getElementById('tonebox').value;
+      if (content.trim().length > 0) {
+        alert("Toneframe loaded. Mirror active.");
+      } else {
+        alert("No toneframe loaded.");
+      }
+    }
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
         .then(() => console.log('Service Worker Registered'));
