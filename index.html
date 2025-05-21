@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#000000"/>
+  <title>Active Mirror</title>
+  <style>
+    body {
+      font-family: monospace;
+      background-color: #121212;
+      color: #e3e3e3;
+      margin: 0;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      background-color: #1e1e1e;
+      color: #00ff9f;
+      border: 1px solid #444;
+      padding: 10px;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #00ff9f;
+      border: none;
+      color: #000;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Active Mirror</h1>
+  <p>Paste your toneframe below to activate:</p>
+  <textarea placeholder="Paste toneframe here..."></textarea>
+  <button onclick="alert('Toneframe loaded. Mirror active.')">Activate Mirror</button>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('Service Worker Registered'));
+    }
+  </script>
+</body>
+</html>
