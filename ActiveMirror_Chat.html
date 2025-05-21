@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Active Mirror Chat</title>
+  <style>
+    body {
+      font-family: monospace;
+      background-color: #111;
+      color: #0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    select, textarea, input, button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 1em;
+      border: 1px solid #333;
+      background-color: #000;
+      color: #0f0;
+    }
+    #response {
+      white-space: pre-wrap;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #444;
+      background-color: #222;
+    }
+  </style>
+</head>
+<body>
+  <h1>Active Mirror – GPT Chat</h1>
+  <label for="tone">Select Toneframe:</label>
+  <select id="tone">
+    <option value="core">Core</option>
+    <option value="guardian">Guardian</option>
+    <option value="shadow">Shadow</option>
+    <option value="public">Public</option>
+  </select>
+
+  <label for="userInput">Speak to the Mirror:</label>
+  <textarea id="userInput" rows="4" placeholder="Type your reflection..."></textarea>
+
+  <button onclick="reflect()">Activate Mirror</button>
+
+  <div id="response"></div>
+
+  <script>
+    async function reflect() {
+      const tone = document.getElementById('tone').value;
+      const input = document.getElementById('userInput').value;
+
+      const responseDiv = document.getElementById('response');
+      responseDiv.textContent = "Reflecting...";
+
+      const res = await fetch('https://mirror-server.active/api/reflect', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tone, input })
+      });
+
+      const data = await res.json();
+      responseDiv.textContent = data.message || "No reflection returned.";
+    }
+  </script>
+</body>
+</html>
